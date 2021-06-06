@@ -1,0 +1,171 @@
+* , *:before , *:after{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+body{
+    overflow: hidden;
+}
+.Twitter .main_content .col.one{
+    overflow: hidden;
+    background: #71C9F8;
+}
+.Twitter .main_content .col.one .content_1,
+.Twitter .main_content .col.two .content_2{
+    display: flex;
+    height: 95vh;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+.Twitter .main_logo{
+    position: absolute;
+    color: #1DA1F2;
+    top: -20vh;
+    right: -45vh;
+    fill: currentColor;
+}
+.Twitter .main_content .sentence div{
+    margin-bottom: 25px;
+}
+.Twitter .main_content .sentence div p{
+    display: inline-flex;
+    color: white;
+    font-weight: 700;
+    font-size: 20px;
+}
+.Twitter .main_content .sentence div svg{
+    color: white;
+    margin: 10px;
+    margin-top: -2px;
+    fill: currentColor;
+    height: 1.5rem; 
+    /* 1 rem = 16px */
+}
+.Twitter .main_content .second_logo svg{
+    height:2rem;
+    color: #1DA1F2;
+    fill: currentColor;
+}
+.Twitter .main_content .second_logo .MyContainer{
+    max-width: 400px;
+}
+.Twitter .main_content .second_logo .MyContainer h2{
+    font-weight: 700;
+    line-height: 1.4;
+    margin-top: 25px;
+}
+.Twitter .main_content .second_logo .MyContainer p{
+    margin-top: 20px;
+    font-weight: 600;
+}
+.Twitter .main_content .second_logo .MyContainer .Buttons_group a{
+    display: block;
+    border: 1px solid #71C9F8;
+    padding: 5px;
+    text-align: center;
+    text-decoration: none;
+    margin: 10px 0;
+    color: #1DA1F2;
+    font-weight: 600;
+    border-radius: 30px;
+}
+.Twitter .main_content .second_logo .MyContainer .Buttons_group a:nth-child(1){
+    background: #1DA1F2;
+    color: white;
+}
+.Twitter .main_content .second_logo .MyContainer .Buttons_group a:nth-child(1):hover{
+    background: #71C9F8;
+    transition: 0.2s all ease-in;
+}
+.footer{
+    padding: 10px;
+}
+.Twitter .footer .col ul{
+    max-width: 1200px;
+    margin: 0 auto;
+    padding-bottom: 10px;
+}
+.Twitter .footer .col ul li{
+    list-style: none;
+    display: inline-flex;
+}
+.Twitter .footer .col ul li a{
+    font-size: 14px;
+    color: rgb(77, 77, 77);
+    padding-left: 5px;
+}
+
+
+/*/////////////////*/
+/* google fonts */
+
+
+h1, h2, h3, h4, ul, li, a, p, input, label, button, div, footer{
+  margin: 0;
+  padding: 0;
+  font-family: 'Quicksand', sans-serif;
+  color: #444;
+}
+ul{
+  list-style-type: none;
+}
+a{
+  text-decoration: none;
+}
+nav{
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 120px;
+}
+nav ul{
+  display: flex;
+  align-items: center;
+}
+nav li{
+  margin-left: 20px;
+}
+nav li a{
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: 0.8em;
+  display: block;
+  padding: 10px 16px;
+  letter-spacing: 2px;
+}
+.btn{
+  border-radius: 30px;
+  background: #FEE996;
+}
+form h2{
+  font-size: 2.4em;
+  font-weight: 900;
+  margin-bottom: 40px;
+}
+form{
+  width: 360px;
+  margin: 0 auto;
+  padding: 30px;
+  box-shadow: 1px 2px 3px rgba(0,0,0,0.1);
+  border-radius: 10px;
+  background: white;
+}
+input{
+  padding: 10px 12px;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+  font-size: 1em;
+  width: 100%;
+}
+label{
+  display: block;
+  margin: 20px 0 10px;
+}
+
+
+
+
+
+
+/* 97 lines of CSS styles */
