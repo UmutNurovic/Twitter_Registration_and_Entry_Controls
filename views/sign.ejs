@@ -59,10 +59,11 @@
                         <div class="container">
                             <form  action="/sign" method="POST">
                                 <h2> Sign up </h2>
+                                <% if (locals.validation_error !=undefined) { %>
+                                    <%- include('./partials/_message') %> 
+                                 <% } %> 
                                   <label >Name</label>
                                 <input type="name" name="name"  required>
-                            
-                                
                             
                                 <label for="email">Email</label>
                                 <input type="email" name="email"   required>
