@@ -13,6 +13,7 @@ router.post('/sign',validateSignUser.validateNewUser(),auth_controller.PostSign)
 
 
 
+router.get('/verify',auth_controller.verifyMail);
 
 
 module.exports=router;

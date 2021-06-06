@@ -18,6 +18,10 @@ const userSchema = mongoose.Schema({
         required:true,
         minlength:4
     },
+    emailAktif:{
+        type:Boolean,
+        default:false
+    },
 });
 const User = mongoose.model('users',userSchema);
 module.exports = User;
