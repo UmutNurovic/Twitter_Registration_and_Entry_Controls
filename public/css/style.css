@@ -162,7 +162,18 @@ label{
   display: block;
   margin: 20px 0 10px;
 }
-
+button{
+  margin-top: 50px;
+  border-radius: 46px;
+  background: #1DA1F2;
+  border:0;
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: 0.8em;
+  display: block;
+  padding: 10px 16px;
+  letter-spacing: 2px;
+}
 
 
 

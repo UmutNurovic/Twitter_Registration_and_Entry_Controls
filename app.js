@@ -1,6 +1,14 @@
 const express = require('express');
+const dotenv = require('dotenv').config();
+const bodyParser = require('body-parser');
 const path = require('path');
 const app = express();
+
+//db Connet
+require('./connet/db_Connect');
+
+//router
+const auth_Router = require('./Router/AuthRoter');
 
 
 //view engine
@@ -9,17 +17,9 @@ app.use(express.static(path.join(__dirname,'public')));
 
 
 
-app.get('/',(req,res)=>{
-    res.render('index');
-});
+app.use(bodyParser.urlencoded({extended:true}));
 
-app.get('/sign',(req,res)=>{
-    res.render('sign');
-});
-
-app.get('/login',(req,res)=>{
-    res.render('login');
-});
+app.use(auth_Router);
 
 app.listen(3000,()=>{
     console.log("port çalışıyor");
