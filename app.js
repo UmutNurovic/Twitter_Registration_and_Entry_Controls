@@ -3,6 +3,8 @@ const flash = require('connect-flash');
 const session = require('express-session');
 const dotenv = require('dotenv').config();
 const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
+const {checkUser}= require('./middleware/auth_MiddleWare');
 const path = require('path');
 const app = express();
 
@@ -18,6 +20,7 @@ const auth_Router = require('./Router/AuthRoter');
 //view engine
 app.set('view engine','ejs');
 app.use(express.static(path.join(__dirname,'public')));
+app.use(cookieParser());
 
 app.use(session({
 
@@ -37,7 +40,7 @@ res.locals.email = req.flash('email');
 res.locals.password = req.flash('password');
 next();
 });
-
+app.get('*',checkUser);
 app.use(auth_Router);
 
 app.listen(3000,()=>{

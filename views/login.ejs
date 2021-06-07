@@ -57,10 +57,13 @@
                         </svg>
                       
                         <div class="container">
-                            <form class="User" action="/register" method="POST">
+                            <form  action="/login" method="POST">
                                 <h2> Login</h2>
+                                <% if (locals.validation_error !=undefined) { %>
+                                    <%- include('./partials/_message') %> 
+                                 <% } %> 
                                   <label >Name</label>
-                                <input type="name" name="name"  required>
+                                <input type="email" name="email"  required>
                           
                             
                                 <label for="password">Password</label>
@@ -72,11 +75,8 @@
                         
                               
                               
-                                  
-                                <div class="Buttons_group">
-                                    <a href="#">Login</a>
-                                   
-                                </div>
+                                  <br>
+                                <button >Login</button> 
                             <a href="">Şifreni mi unuttun ?</a><a href="./sign"> Twittier'a kaydol</a>
                             </form>
                             

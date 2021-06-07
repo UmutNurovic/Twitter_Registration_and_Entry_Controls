@@ -6,9 +6,46 @@ const User = require('../models/user');
 const getIndex=(req,res)=>{
     res.render('index');
 }
-
+const getMainPage= (req,res)=>{
+    
+    res.render('main');
+}
 const getLogin= (req,res)=>{
+    
     res.render('login');
+}
+const PostLogin =  async(req,res)=>{
+    
+    const _user = await User.findOne({email:req.body.email});
+    console.log();
+    const password = await bcrypt.compare(req.body.password,_user.password);
+    if(!_user){
+        
+        req.flash('validation_error',[{msg: "Böyle bir Mail Bulunmamakta"}]);
+        req.flash('name',req.body.email);
+        req.flash('email',req.body.email);
+        req.flash('password',req.body.password);
+        res.redirect('/login');  
+    }if(!password){
+        req.flash('validation_error',[{msg: "Şifre hatalı"}]);
+        req.flash('name',req.body.email);
+        req.flash('email',req.body.email);
+        req.flash('password',req.body.password);
+        res.redirect('/login');  
+    }
+    else{
+        if(_user && _user.emailAktif == false){
+            req.flash('validation_error',[{msg: "Lütfen Emailinizi onaylayın"}]); 
+            req.flash('name',req.body.email);
+            req.flash('email',req.body.email);
+            req.flash('password',req.body.password);
+            res.redirect('/login');  
+        }
+        const token = createToken(_user._id);
+        res.cookie('jwt',token,{httpOnly:true,maxAge:maxAge *1000});
+        res.redirect('main');
+
+    }
 }
 
 const getSign= (req,res)=>{
@@ -49,11 +86,11 @@ const PostSign = async(req,res)=>{
                 const newUser = new User({
                     name:req.body.name,
                     email:req.body.email,
-                    password:req.body.password,
+                    password: await bcrypt.hash(req.body.password,10),
                 });
                 await newUser.save();
 
-console.log(newUser);
+                //console.log(newUser);
                 // JWT İşlemleri
                 const Jwtinformation = {
                     id:newUser._id,
@@ -64,9 +101,11 @@ console.log(newUser);
 
                 // Mail Gönderme işlemleri
                 const url = process.env.WEB_SITE_URL+'verify?id='+jwtToken;
-                console.log(`gidecek url ${url}`);
+                //console.log(`gidecek url ${url}`);
                 let transporter = nodemailer.createTransport({
                     service:'gmail',
+                    port: 587,
+                    secure:465,
                     auth:{
                         user:process.env.GMAIL_USER,
                         pass:process.env.GMAIL_SIFRE
@@ -81,9 +120,12 @@ console.log(newUser);
                     if(error){
                         console.log("bir hatta oluştu "+ error);
                     }
-                    console.log("mail gonderildi");
-                    console.log(info);
-                    transporter.close();
+                    else{
+                        console.log("mail gonderildi");
+                        console.log(info);
+                        transporter.close();
+                    }
+                  
                 });
 
 
@@ -136,10 +178,12 @@ const verifyMail = (req,res,next)=>{
     }
    }
 module.exports={
+    getMainPage,
     getIndex,
     getLogin,
     getSign,
     //Posts
     PostSign,
+    PostLogin,
     verifyMail
 }
