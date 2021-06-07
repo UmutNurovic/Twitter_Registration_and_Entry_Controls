@@ -17,7 +17,7 @@ const getLogin= (req,res)=>{
 const PostLogin =  async(req,res)=>{
     
     const _user = await User.findOne({email:req.body.email});
-    console.log();
+    
     const password = await bcrypt.compare(req.body.password,_user.password);
     if(!_user){
         
@@ -26,7 +26,8 @@ const PostLogin =  async(req,res)=>{
         req.flash('email',req.body.email);
         req.flash('password',req.body.password);
         res.redirect('/login');  
-    }if(!password){
+    }
+    if(!password){
         req.flash('validation_error',[{msg: "Şifre hatalı"}]);
         req.flash('name',req.body.email);
         req.flash('email',req.body.email);
@@ -85,13 +86,14 @@ const PostSign = async(req,res)=>{
                 }
                 const newUser = new User({
                     name:req.body.name,
+                    Nickname:req.body.Nickname,
                     email:req.body.email,
                     password: await bcrypt.hash(req.body.password,10),
                 });
                 await newUser.save();
 
                 //console.log(newUser);
-                // JWT İşlemleri
+                // JWT Transactions
                 const Jwtinformation = {
                     id:newUser._id,
                     mail:newUser.email
@@ -99,7 +101,7 @@ const PostSign = async(req,res)=>{
                 const jwtToken = jwt.sign(Jwtinformation,  process.env.CONFRIM_MAIL_JWT_SECRET,{expiresIn:'1d'});
                 console.log(jwtToken);
 
-                // Mail Gönderme işlemleri
+                // Mailing news
                 const url = process.env.WEB_SITE_URL+'verify?id='+jwtToken;
                 //console.log(`gidecek url ${url}`);
                 let transporter = nodemailer.createTransport({
@@ -127,15 +129,8 @@ const PostSign = async(req,res)=>{
                     }
                   
                 });
-
-
                 res.redirect('/login');
-
             }
-          
-            
-            
-            
         } catch (error) {
             console.log(error);
         }
@@ -143,8 +138,6 @@ const PostSign = async(req,res)=>{
     console.log(validateError);
     console.log(req.body);
 }
-
-
 const verifyMail = (req,res,next)=>{
     
     const token = req.query.id;
@@ -177,6 +170,15 @@ const verifyMail = (req,res,next)=>{
         console.log("token yok");
     }
    }
+
+
+
+
+const Getlogout =async(req,res)=>{
+    res.cookie('jwt','',{maxAge:1});
+    res.redirect('/login');
+    await User.findByIdAndUpdate(res.locals.user._id,{Aktif:false});
+};
 module.exports={
     getMainPage,
     getIndex,
@@ -185,5 +187,10 @@ module.exports={
     //Posts
     PostSign,
     PostLogin,
-    verifyMail
+    verifyMail,
+
+
+
+    //logout
+    Getlogout
 }

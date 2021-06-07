@@ -5,6 +5,7 @@ const validateNewUser =()=>{
     .trim()
     .isLength({min:3}).withMessage('your name cannot be shorter than 3 characters'),
 
+    body('Nickname').trim().isLength({min:3}).withMessage('your Nick name cannot be shorter than 3 characters'),
     body('email')
     .trim().isEmail().withMessage('Enter Valid Email'),
 

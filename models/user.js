@@ -2,10 +2,14 @@ const mongoose = require('mongoose');
 const userSchema = mongoose.Schema({
     name:{
         type:String,
-        unique:true,
         required: true, 
         min:3,
         
+    },
+    Nickname:{
+        type:String,
+        unique:true,
+        min:3
     },
     email:{
         type: String,
