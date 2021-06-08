@@ -26,6 +26,10 @@ const userSchema = mongoose.Schema({
         type:Boolean,
         default:false
     },
+    Img:{
+        type:String,
+        require:true,
+    },
 });
 const User = mongoose.model('users',userSchema);
 module.exports = User;

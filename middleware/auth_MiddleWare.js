@@ -32,11 +32,13 @@ const checkUser =(req,res,next)=>{
             }else{
                 let user = await User.findById(decodedToken.id);
                 res.locals.user=user;
+                
                 next();
             }
         });
     }
     else{
+        res.redirect('login');
         res.locals.user=null;
         next();
     }

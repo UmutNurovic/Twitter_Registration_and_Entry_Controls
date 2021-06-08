@@ -5,23 +5,25 @@ const dotenv = require('dotenv').config();
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const {checkUser}= require('./middleware/auth_MiddleWare');
-const path = require('path');
+const fileUpload = require('express-fileupload');
 const app = express();
 
-app.use(bodyParser.urlencoded({extended:true}));
+app.use(bodyParser.urlencoded({extended:false}));
+app.use(bodyParser.json());
 
 //db Connet
-require('./connet/db_Connect');
+require('./connect/db_Connect');
 
 //router
 const auth_Router = require('./Router/AuthRoter');
+const mainRouter = require('./Router/MainRouter');
 
 
 //view engine
 app.set('view engine','ejs');
-app.use(express.static(path.join(__dirname,'public')));
+app.use(express.static('public'));
 app.use(cookieParser());
-
+app.use(fileUpload());
 app.use(session({
 
     secret:process.env.SEESION_SECRET,
@@ -40,9 +42,11 @@ res.locals.email = req.flash('email');
 res.locals.password = req.flash('password');
 next();
 });
-app.get('*',checkUser);
-app.use(auth_Router);
 
+
+
+app.use(auth_Router);
+app.use('/main',mainRouter);
 app.listen(3000,()=>{
     console.log("port çalışıyor");
 })

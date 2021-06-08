@@ -57,7 +57,7 @@
                         </svg>
                       
                         <div class="container">
-                            <form  action="/sign" method="POST">
+                            <form  action="/sign" method="POST" enctype="multipart/form-data">
                                 <h2> Sign up </h2>
                                 <% if (locals.validation_error !=undefined) { %>
                                     <%- include('./partials/_message') %> 
@@ -74,6 +74,11 @@
                                 <label for="password">Password</label>
                                 <input type="password" name="password" required>
                                 <div class="password error"> </div>
+                                <br>
+
+                                
+                                    
+                                    <input type="file" name="Img" required>
                                  <br>
                                     
                                     <button >Login</button>   

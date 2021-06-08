@@ -3,12 +3,13 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const nodemailer = require('nodemailer');
 const User = require('../models/user');
-const getIndex=(req,res)=>{
+const path = require('path');
+
+const getIndex= (req,res)=>{
     res.render('index');
 }
-const getMainPage= (req,res)=>{
-    
-    res.render('main');
+const getMainPage= async(req,res)=>{
+    res.render('main')
 }
 const getLogin= (req,res)=>{
     
@@ -61,6 +62,11 @@ const createToken=(id)=>{
 }
 
 const PostSign = async(req,res)=>{
+   
+    console.log(req.body);
+   
+  
+    
     const validateError = validationResult(req);
     if(!validateError.isEmpty()){
         req.flash('validation_error',validateError.array());
@@ -84,13 +90,16 @@ const PostSign = async(req,res)=>{
                 if(_user){
                     await User.findByIdAndRemove({_id:_user._id});
                 }
+                let Img = req.files.Img;
+                Img.mv(path.resolve(__dirname,'../public/img/userProfileImg',Img.name));
                 const newUser = new User({
                     name:req.body.name,
                     Nickname:req.body.Nickname,
                     email:req.body.email,
                     password: await bcrypt.hash(req.body.password,10),
+                    Img:`/img/userProfileImg/${Img.name}`,
                 });
-                await newUser.save();
+               await newUser.save();
 
                 //console.log(newUser);
                 // JWT Transactions
@@ -136,7 +145,7 @@ const PostSign = async(req,res)=>{
         }
     }
     console.log(validateError);
-    console.log(req.body);
+    console.log(req.body); 
 }
 const verifyMail = (req,res,next)=>{
     
@@ -177,7 +186,6 @@ const verifyMail = (req,res,next)=>{
 const Getlogout =async(req,res)=>{
     res.cookie('jwt','',{maxAge:1});
     res.redirect('/login');
-    await User.findByIdAndUpdate(res.locals.user._id,{Aktif:false});
 };
 module.exports={
     getMainPage,
