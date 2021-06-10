@@ -10,6 +10,9 @@ const twittSchema = new Schema({
     },
     author:{
         type:Schema.Types.ObjectId,ref:'users'
+    },
+    twiitImg:{
+        type:String
     }
 },);
 const Twiit = mongoose.model('twits',twittSchema);

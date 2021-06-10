@@ -19,7 +19,7 @@ const PostLogin =  async(req,res)=>{
     
     const _user = await User.findOne({email:req.body.email});
     
-    const password = await bcrypt.compare(req.body.password,_user.password);
+    const passwords = await bcrypt.compare(req.body.password,_user.password);
     if(!_user){
         
         req.flash('validation_error',[{msg: "Böyle bir Mail Bulunmamakta"}]);
@@ -28,7 +28,7 @@ const PostLogin =  async(req,res)=>{
         req.flash('password',req.body.password);
         res.redirect('/login');  
     }
-    if(!password){
+    if(!passwords){
         req.flash('validation_error',[{msg: "Şifre hatalı"}]);
         req.flash('name',req.body.email);
         req.flash('email',req.body.email);
@@ -36,7 +36,7 @@ const PostLogin =  async(req,res)=>{
         res.redirect('/login');  
     }
     else{
-        if(_user && _user.emailAktif == false){
+        if(_user && _user.emailAktif == false && password){
             req.flash('validation_error',[{msg: "Lütfen Emailinizi onaylayın"}]); 
             req.flash('name',req.body.email);
             req.flash('email',req.body.email);
