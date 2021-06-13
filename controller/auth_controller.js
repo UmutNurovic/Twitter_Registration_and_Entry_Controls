@@ -45,7 +45,7 @@ const PostLogin =  async(req,res)=>{
         }
         const token = createToken(_user._id);
         res.cookie('jwt',token,{httpOnly:true,maxAge:maxAge *1000});
-        res.redirect('main');
+        res.json({"Hello":_user.name});
 
     }
 }
@@ -138,14 +138,15 @@ const PostSign = async(req,res)=>{
                     }
                   
                 });
+                req.flash('success_message',[{msg:'Lütfen mail kutunuzu kontrol edin'}]);
                 res.redirect('/login');
             }
         } catch (error) {
             console.log(error);
         }
     }
-    console.log(validateError);
-    console.log(req.body); 
+    //console.log(validateError);
+    //console.log(req.body); 
 }
 const verifyMail = (req,res,next)=>{
     

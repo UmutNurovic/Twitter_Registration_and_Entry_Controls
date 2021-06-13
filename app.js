@@ -16,7 +16,6 @@ require('./connect/db_Connect');
 
 //router
 const auth_Router = require('./Router/AuthRoter');
-const mainRouter = require('./Router/MainRouter');
 
 
 //view engine
@@ -40,13 +39,13 @@ res.locals.success_message = req.flash('success_message');
 res.locals.name = req.flash('name');
 res.locals.email = req.flash('email');
 res.locals.password = req.flash('password');
+res.locals.login_error = req.flash('error');
 next();
 });
 
 
 
 app.use(auth_Router);
-app.use('/main',mainRouter);
 app.listen(3000,()=>{
     console.log("port çalışıyor");
 })

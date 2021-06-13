@@ -2,3 +2,10 @@
   <h5> <%- element.msg %> </h5>
   
    <% }) %>
+   <% login_error.forEach(error => { %>
+    <h5> <%- error %> </h5>
+   <% }) %>
+
+   <% success_message.forEach(element => { %>
+    <h5> <%- element.msg %> </h5>
+   <% }) %>
