@@ -10,7 +10,6 @@ router.get('/sign',auth_controller.getSign);
 
 router.post('/sign',validateSignUser.validateNewUser(),auth_controller.PostSign);
 router.post('/login',auth_controller.PostLogin);
-
 router.get('/logout',auth_controller.Getlogout);
 
 
